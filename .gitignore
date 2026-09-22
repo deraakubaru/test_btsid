@@ -1,0 +1,22 @@
+# Binary output
+/api
+/bin
+*.exe
+*.exe;
+*.dll
+*.so
+*.dylib
+
+# Test & coverage output
+*.out
+*.test
+
+# Local environment variables
+.env
+!.env.example
+
+# IDE & OS files
+.idea/
+.vscode/
+*.swp
+.DS_Store
