@@ -47,7 +47,7 @@ func main() {
 	productHandler := handler.NewProductHandler(productService)
 
 	// 5. Wire Router & Start HTTP Server
-	r := router.SetupRouter(authHandler, productHandler)
+	r := router.SetupRouter(authHandler, productHandler, cfg.JWTSecret)
 	addr := fmt.Sprintf(":%s", cfg.Port)
 	log.Printf("Starting HTTP server on %s", addr)
 	if err := r.Run(addr); err != nil {

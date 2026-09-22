@@ -84,6 +84,10 @@ func (f *fakeProductRepository) CreateProduct(ctx context.Context, p *domain.Pro
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
+	if f.simulateError {
+		return nil, errors.New("db error")
+	}
+
 	f.idSeq++
 	created := &domain.Product{
 		ID:          f.idSeq,
@@ -107,6 +111,10 @@ func (f *fakeProductRepository) UpdateProduct(ctx context.Context, p *domain.Pro
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
+	if f.simulateError {
+		return nil, errors.New("db error")
+	}
+
 	existing, exists := f.products[p.ID]
 	if !exists {
 		return nil, domain.NewNotFoundError("product not found")
@@ -126,6 +134,10 @@ func (f *fakeProductRepository) UpdateProduct(ctx context.Context, p *domain.Pro
 func (f *fakeProductRepository) DeleteProduct(ctx context.Context, id int64) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+
+	if f.simulateError {
+		return errors.New("db error")
+	}
 
 	if _, exists := f.products[id]; !exists {
 		return domain.NewNotFoundError("product not found")
